@@ -1,0 +1,240 @@
+/* Plate Math — dark gym-themed UI laid over the WebGL canvas. */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  background: #101318;
+  color: #e8eaf0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+#glCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 640px;
+  min-height: 480px;
+  touch-action: none;
+  cursor: grab;
+}
+
+#glCanvas:active {
+  cursor: grabbing;
+}
+
+#fallback {
+  position: fixed;
+  top: 45%;
+  width: 100%;
+  text-align: center;
+  color: #ff9d9d;
+  font-size: 18px;
+}
+
+#titleBox {
+  position: fixed;
+  top: 16px;
+  left: 20px;
+  pointer-events: none;
+}
+
+#titleBox h1 {
+  font-size: 26px;
+  letter-spacing: 4px;
+  color: #ffd54a;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+#titleBox span {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #9aa3b2;
+}
+
+#totalBox {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 300px;
+  padding: 12px 28px;
+  text-align: center;
+  background: rgba(14, 17, 23, 0.82);
+  border: 1px solid #2a3140;
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
+}
+
+#totalMain {
+  font-size: 40px;
+  font-weight: 700;
+  color: #ffd54a;
+  font-variant-numeric: tabular-nums;
+}
+
+#totalSub {
+  font-size: 13px;
+  color: #9fc9e8;
+  margin-top: 2px;
+}
+
+#plateChips {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  min-height: 8px;
+}
+
+.loadedChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+#panel {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  width: 250px;
+  max-height: calc(100vh - 28px);
+  overflow-y: auto;
+  padding: 14px;
+  background: rgba(14, 17, 23, 0.86);
+  border: 1px solid #2a3140;
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
+}
+
+#panel section {
+  margin-bottom: 14px;
+}
+
+#panel h3 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #7f8b9e;
+  margin-bottom: 7px;
+  border-bottom: 1px solid #232a37;
+  padding-bottom: 4px;
+}
+
+#panel label {
+  display: block;
+  font-size: 13px;
+  padding: 3px 0;
+  cursor: pointer;
+}
+
+#panel label.slider {
+  color: #9aa3b2;
+  font-size: 12px;
+}
+
+#panel input[type='range'] {
+  width: 100%;
+  accent-color: #ffd54a;
+}
+
+#panel input[type='radio'],
+#panel input[type='checkbox'] {
+  accent-color: #ffd54a;
+}
+
+#plateButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+button {
+  font: inherit;
+  font-size: 12.5px;
+  padding: 7px 8px;
+  color: #e8eaf0;
+  background: #1c222d;
+  border: 1px solid #323b4c;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+button:hover {
+  background: #273040;
+}
+
+button:active {
+  background: #313d52;
+}
+
+.plateBtn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  text-align: left;
+}
+
+.plateBtn .chip {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--plate);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.row {
+  display: flex;
+  gap: 6px;
+}
+
+.row button {
+  flex: 1;
+}
+
+#toast {
+  position: fixed;
+  bottom: 64px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  padding: 10px 20px;
+  background: rgba(160, 44, 44, 0.92);
+  border-radius: 10px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.25s, transform 0.25s;
+  pointer-events: none;
+}
+
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+#help {
+  position: fixed;
+  bottom: 14px;
+  left: 20px;
+  font-size: 12px;
+  color: #7f8b9e;
+  pointer-events: none;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plate Math — WebGL Barbell Calculator</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="glCanvas"></canvas>
+  <div id="fallback"></div>
+
+  <div id="titleBox">
+    <h1>PLATE MATH</h1>
+    <span>WebGL Barbell Calculator</span>
+  </div>
+
+  <div id="totalBox">
+    <div id="totalMain">45 LB</div>
+    <div id="totalSub">20.4 kg: bar only</div>
+    <div id="plateChips"></div>
+  </div>
+
+  <aside id="panel">
+    <section>
+      <h3>Setup</h3>
+      <div id="modeRadios" class="radioGroup"></div>
+    </section>
+    <section>
+      <h3>Units</h3>
+      <div id="unitRadios" class="radioGroup"></div>
+    </section>
+    <section>
+      <h3>Barbell</h3>
+      <div id="barRadios" class="radioGroup"></div>
+    </section>
+    <section>
+      <h3>Add plates (pairs)</h3>
+      <div id="plateButtons"></div>
+      <div class="row">
+        <button id="removeLastBtn">Remove last</button>
+        <button id="clearBtn">Clear bar</button>
+      </div>
+    </section>
+    <section>
+      <h3>Lighting</h3>
+      <label><input type="checkbox" id="keyLight" checked> Key light</label>
+      <label><input type="checkbox" id="fillLight" checked> Fill light</label>
+      <label><input type="checkbox" id="shadows" checked> Shadows</label>
+      <label><input type="checkbox" id="texturesOn" checked> Textures</label>
+      <label class="slider">Ambient
+        <input type="range" id="ambient" min="0.05" max="0.8" step="0.01"
+            value="0.35">
+      </label>
+    </section>
+    <section>
+      <h3>Camera</h3>
+      <label><input type="checkbox" id="autoRotate"> Auto-rotate</label>
+      <label class="slider">Speed
+        <input type="range" id="rotateSpeed" min="0.2" max="3" step="0.1"
+            value="1">
+      </label>
+    </section>
+  </aside>
+
+  <div id="toast"></div>
+  <div id="help">Drag to rotate &bull; Scroll to zoom</div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
