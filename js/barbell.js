@@ -68,7 +68,7 @@ export class BarbellRig {
             bar.sleeveRadius, bar.sleeveLength, 24,
             {uRepeat: 2, vRepeat: 3})),
         collar: this.renderer_.createMesh(createCylinder(
-            0.038, LAYOUT.collarWidth, 24)),
+            LAYOUT.collarRadius, LAYOUT.collarWidth, 24)),
       };
     }
     return this.barMeshCache_[bar.id];
@@ -196,9 +196,11 @@ export class BarbellRig {
     }
     this.plates_ = this.plates_.filter((p) => p.slide > 0 || !p.removing);
 
+    // On the floor the bar rests on its plates, or on the collar flanges
+    // when unloaded.
     const loaded = this.getLoadedSpecs();
     const maxRadius = loaded.length ?
-        Math.max(...loaded.map((s) => s.radius)) : this.bar.shaftRadius;
+        Math.max(...loaded.map((s) => s.radius)) : LAYOUT.collarRadius;
     let targetY = LAYOUT.platformTopY + maxRadius;
     if (this.mode_ === 'rack') {
       targetY = LAYOUT.rackBarY;

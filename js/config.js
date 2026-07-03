@@ -106,6 +106,8 @@ export const LAYOUT = {
   benchUprightX: 0.55,
   // Width of the fixed collar flange on the bar.
   collarWidth: 0.03,
+  // Radius of the collar flange; an unloaded bar rests on these.
+  collarRadius: 0.038,
   // Sleeve length kept free for a bar clamp.
   sleeveReserve: 0.04,
   // Back wall position.
