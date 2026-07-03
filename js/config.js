@@ -48,6 +48,8 @@ export const BAR_TYPES = {
  */
 export const PLATE_SPECS = {
   lb: [
+    {value: 55, label: '55', color: '#c8332f', textColor: '#f4f6fa',
+      radius: 0.225, thickness: 0.064},
     {value: 45, label: '45', color: '#2b62c4', textColor: '#f4f6fa',
       radius: 0.225, thickness: 0.056},
     {value: 35, label: '35', color: '#e0b52a', textColor: '#2a2a2e',
