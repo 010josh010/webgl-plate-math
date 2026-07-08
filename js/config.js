@@ -1,9 +1,13 @@
 /**
  * @fileoverview Central configuration for the Plate Math scene. Bar and plate
- * specifications, scene layout constants, light rig values, and material
- * colors all live here so the other modules stay free of magic numbers.
+ * specifications, scene layout constants, and the light rig all live here so
+ * the other modules stay free of magic numbers. Reused hex colors come from
+ * constants.js.
  * Lengths are in meters; weights are in the unit named by the field.
  */
+
+import {BLUE, GREEN, PLATE_BLACK, RED, TEXT_DARK, TEXT_LIGHT, YELLOW}
+  from './constants.js';
 
 /** Pounds per kilogram, used for the secondary weight readout. */
 export const LB_PER_KG = 2.2046226;
@@ -48,35 +52,35 @@ export const BAR_TYPES = {
  */
 export const PLATE_SPECS = {
   lb: [
-    {value: 55, label: '55', color: '#c8332f', textColor: '#f4f6fa',
+    {value: 55, label: '55', color: RED, textColor: TEXT_LIGHT,
       radius: 0.225, thickness: 0.064},
-    {value: 45, label: '45', color: '#2b62c4', textColor: '#f4f6fa',
+    {value: 45, label: '45', color: BLUE, textColor: TEXT_LIGHT,
       radius: 0.225, thickness: 0.056},
-    {value: 35, label: '35', color: '#e0b52a', textColor: '#2a2a2e',
+    {value: 35, label: '35', color: YELLOW, textColor: TEXT_DARK,
       radius: 0.200, thickness: 0.050},
-    {value: 25, label: '25', color: '#2f9e57', textColor: '#f4f6fa',
+    {value: 25, label: '25', color: GREEN, textColor: TEXT_LIGHT,
       radius: 0.175, thickness: 0.044},
-    {value: 10, label: '10', color: '#212125', textColor: '#f4f6fa',
+    {value: 10, label: '10', color: PLATE_BLACK, textColor: TEXT_LIGHT,
       radius: 0.140, thickness: 0.030},
-    {value: 5, label: '5', color: '#2d2d32', textColor: '#f4f6fa',
+    {value: 5, label: '5', color: '#2d2d32', textColor: TEXT_LIGHT,
       radius: 0.115, thickness: 0.026},
-    {value: 2.5, label: '2.5', color: '#212125', textColor: '#f4f6fa',
+    {value: 2.5, label: '2.5', color: PLATE_BLACK, textColor: TEXT_LIGHT,
       radius: 0.090, thickness: 0.020},
   ],
   kg: [
-    {value: 25, label: '25', color: '#c8332f', textColor: '#f4f6fa',
+    {value: 25, label: '25', color: RED, textColor: TEXT_LIGHT,
       radius: 0.225, thickness: 0.064},
-    {value: 20, label: '20', color: '#2b62c4', textColor: '#f4f6fa',
+    {value: 20, label: '20', color: BLUE, textColor: TEXT_LIGHT,
       radius: 0.225, thickness: 0.054},
-    {value: 15, label: '15', color: '#e0b52a', textColor: '#2a2a2e',
+    {value: 15, label: '15', color: YELLOW, textColor: TEXT_DARK,
       radius: 0.225, thickness: 0.044},
-    {value: 10, label: '10', color: '#2f9e57', textColor: '#f4f6fa',
+    {value: 10, label: '10', color: GREEN, textColor: TEXT_LIGHT,
       radius: 0.225, thickness: 0.034},
-    {value: 5, label: '5', color: '#e4e4e8', textColor: '#2a2a2e',
+    {value: 5, label: '5', color: '#e4e4e8', textColor: TEXT_DARK,
       radius: 0.114, thickness: 0.026},
-    {value: 2.5, label: '2.5', color: '#c8332f', textColor: '#f4f6fa',
+    {value: 2.5, label: '2.5', color: RED, textColor: TEXT_LIGHT,
       radius: 0.095, thickness: 0.022},
-    {value: 1.25, label: '1.25', color: '#b8bcc2', textColor: '#2a2a2e',
+    {value: 1.25, label: '1.25', color: '#b8bcc2', textColor: TEXT_DARK,
       radius: 0.080, thickness: 0.018},
   ],
 };

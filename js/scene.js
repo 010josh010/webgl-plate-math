@@ -6,6 +6,8 @@
  */
 
 import {LAYOUT, hexToRgb} from './config.js';
+import {MATERIAL, STEEL, STEEL_DARK, STEEL_FOOT, STEEL_LIGHT, UNTINTED}
+  from './constants.js';
 import {createBox, createCylinder, createPlane} from './geometry.js';
 import {mat4Chain, mat4Multiply, mat4RotationX, mat4RotationZ,
   mat4Translation} from './math3d.js';
@@ -92,11 +94,11 @@ export class Scene {
     const list = [];
 
     const floorMesh = r.createMesh(createPlane(14, 14, 7, 7));
-    list.push(this.make_(floorMesh, t.floor, '#ffffff',
+    list.push(this.make_(floorMesh, t.floor, UNTINTED,
         mat4Translation(0, 0, 0), {specular: 0.05, shininess: 8}));
 
     const platformMesh = r.createMesh(createBox(3.0, TOP, 2.4));
-    list.push(this.make_(platformMesh, t.wood, '#ffffff',
+    list.push(this.make_(platformMesh, t.wood, UNTINTED,
         mat4Translation(0, TOP / 2, 0), {specular: 0.15, shininess: 12}));
 
     const stripMesh = r.createMesh(createBox(0.75, 0.008, 2.4));
@@ -107,19 +109,19 @@ export class Scene {
     }
 
     const wallMesh = r.createMesh(createPlane(14, 5, 4, 1.5));
-    list.push(this.make_(wallMesh, t.concrete, '#ffffff',
+    list.push(this.make_(wallMesh, t.concrete, UNTINTED,
         mat4Chain(mat4Translation(0, 2.5, LAYOUT.wallZ),
             mat4RotationX(Math.PI / 2)),
         {specular: 0.02, shininess: 4, castShadow: false}));
 
     const signMesh = r.createMesh(createPlane(1.8, 0.45));
-    list.push(this.make_(signMesh, t.sign, '#ffffff',
+    list.push(this.make_(signMesh, t.sign, UNTINTED,
         mat4Chain(mat4Translation(0, 2.1, LAYOUT.wallZ + 0.03),
             mat4RotationX(Math.PI / 2)),
         {specular: 0, shininess: 4, emissive: 1.0, castShadow: false}));
 
     const clockMesh = r.createMesh(createCylinder(0.24, 0.05, 32));
-    list.push(this.make_(clockMesh, t.clock, '#ffffff',
+    list.push(this.make_(clockMesh, t.clock, UNTINTED,
         mat4Chain(mat4Translation(-2.4, 2.2, LAYOUT.wallZ + 0.05),
             mat4RotationX(Math.PI / 2)),
         {specular: 0.3, shininess: 24, castShadow: false}));
@@ -141,23 +143,23 @@ export class Scene {
     const foot = r.createMesh(createBox(0.14, 0.05, 0.90));
     const cup = r.createMesh(createBox(0.08, 0.06, 0.22));
     const lip = r.createMesh(createBox(0.08, 0.10, 0.025));
-    const dark = {specular: 0.5, shininess: 24};
+    const dark = MATERIAL.hardware;
     for (const s of [-1, 1]) {
       const x = s * LAYOUT.rackUprightX;
-      list.push(this.make_(upright, t.metal, '#3a3d44',
+      list.push(this.make_(upright, t.metal, STEEL_DARK,
           mat4Translation(x, TOP + 1.05, -0.10), dark));
-      list.push(this.make_(foot, t.metal, '#2c2e34',
+      list.push(this.make_(foot, t.metal, STEEL_FOOT,
           mat4Translation(x, TOP + 0.025, -0.10), dark));
-      list.push(this.make_(cup, t.metal, '#3a3d44',
+      list.push(this.make_(cup, t.metal, STEEL_DARK,
           mat4Translation(x, LAYOUT.rackBarY - 0.044, -0.02), dark));
-      list.push(this.make_(lip, t.metal, '#3a3d44',
+      list.push(this.make_(lip, t.metal, STEEL_DARK,
           mat4Translation(x, LAYOUT.rackBarY - 0.024, 0.0775), dark));
     }
     const pullup = r.createMesh(createCylinder(0.02, 1.32, 20));
-    list.push(this.make_(pullup, t.metal, '#c9ccd2',
+    list.push(this.make_(pullup, t.metal, STEEL_LIGHT,
         mat4Chain(mat4Translation(0, TOP + 2.01, -0.10),
             mat4RotationZ(-Math.PI / 2)),
-        {specular: 0.9, shininess: 64}));
+        MATERIAL.polishedSteel));
     return {list, rise: 0, target: 0, drop: 2.4};
   }
 
@@ -170,20 +172,20 @@ export class Scene {
     const r = this.renderer_;
     const t = this.tex;
     const list = [];
-    const dark = {specular: 0.5, shininess: 24};
+    const dark = MATERIAL.hardware;
 
     const pad = r.createMesh(createBox(0.32, 0.07, 1.15));
-    list.push(this.make_(pad, t.upholstery, '#ffffff',
+    list.push(this.make_(pad, t.upholstery, UNTINTED,
         mat4Translation(0, 0.415, 0.495), {specular: 0.35, shininess: 14}));
     const rail = r.createMesh(createBox(0.10, 0.05, 0.95));
-    list.push(this.make_(rail, t.metal, '#b9bec6',
+    list.push(this.make_(rail, t.metal, STEEL,
         mat4Translation(0, 0.355, 0.495), dark));
     const column = r.createMesh(createBox(0.08, 0.29, 0.08));
     const benchFoot = r.createMesh(createBox(0.42, 0.05, 0.10));
     for (const z of [0.10, 0.89]) {
-      list.push(this.make_(column, t.metal, '#b9bec6',
+      list.push(this.make_(column, t.metal, STEEL,
           mat4Translation(0, 0.235, z), dark));
-      list.push(this.make_(benchFoot, t.metal, '#2c2e34',
+      list.push(this.make_(benchFoot, t.metal, STEEL_FOOT,
           mat4Translation(0, TOP + 0.025, z), dark));
     }
 
@@ -193,17 +195,17 @@ export class Scene {
     const upFoot = r.createMesh(createBox(0.30, 0.05, 0.55));
     for (const s of [-1, 1]) {
       const x = s * LAYOUT.benchUprightX;
-      list.push(this.make_(upright, t.metal, '#b9bec6',
+      list.push(this.make_(upright, t.metal, STEEL,
           mat4Translation(x, TOP + 0.465, -0.15), dark));
-      list.push(this.make_(cup, t.metal, '#3a3d44',
+      list.push(this.make_(cup, t.metal, STEEL_DARK,
           mat4Translation(x, LAYOUT.benchBarY - 0.039, -0.05), dark));
-      list.push(this.make_(lip, t.metal, '#3a3d44',
+      list.push(this.make_(lip, t.metal, STEEL_DARK,
           mat4Translation(x, LAYOUT.benchBarY - 0.005, 0.0575), dark));
-      list.push(this.make_(upFoot, t.metal, '#2c2e34',
+      list.push(this.make_(upFoot, t.metal, STEEL_FOOT,
           mat4Translation(x, TOP + 0.025, -0.15), dark));
     }
     const brace = r.createMesh(createBox(1.10, 0.06, 0.08));
-    list.push(this.make_(brace, t.metal, '#b9bec6',
+    list.push(this.make_(brace, t.metal, STEEL,
         mat4Translation(0, TOP + 0.075, -0.15), dark));
     return {list, rise: 0, target: 0, drop: 1.5};
   }

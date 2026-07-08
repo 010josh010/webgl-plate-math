@@ -6,6 +6,7 @@
  */
 
 import {BAR_TYPES, LAYOUT, LB_PER_KG, hexToRgb} from './config.js';
+import {BAR_STEEL, MATERIAL} from './constants.js';
 import {createCylinder, createPlateFaces, createPlateRim} from './geometry.js';
 import {mat4Chain, mat4RotationY, mat4RotationZ,
   mat4Translation} from './math3d.js';
@@ -227,14 +228,13 @@ export class BarbellRig {
       mesh,
       texture: this.textures_.metal,
       color: hexToRgb(color),
-      specular: 0.9,
-      shininess: 64,
+      ...MATERIAL.polishedSteel,
       emissive: 0,
       model: mat4Chain(mat4Translation(x, y, 0), rot),
       castShadow: true,
     });
 
-    const shaft = metal(meshes.shaft, 0, '#d8dbe0');
+    const shaft = metal(meshes.shaft, 0, BAR_STEEL);
     shaft.texture = this.textures_.knurl;
     shaft.specular = 0.7;
     shaft.shininess = 48;
@@ -244,7 +244,7 @@ export class BarbellRig {
     const sleeveX = bar.length / 2 - bar.sleeveLength / 2;
     for (const side of [-1, 1]) {
       out.push(metal(meshes.collar, side * collarX, '#c2c6cd'));
-      out.push(metal(meshes.sleeve, side * sleeveX, '#d8dbe0'));
+      out.push(metal(meshes.sleeve, side * sleeveX, BAR_STEEL));
     }
 
     const innerX = meshes.shaftLen / 2 + LAYOUT.collarWidth;

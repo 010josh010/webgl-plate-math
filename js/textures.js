@@ -5,6 +5,8 @@
  * downloads and every texture stays perfectly power-of-two.
  */
 
+import {RED, STEEL, STEEL_LIGHT} from './constants.js';
+
 /**
  * Creates a square canvas with a 2D context.
  * @param {number} size Width and height in pixels.
@@ -83,7 +85,7 @@ export function makeWoodCanvas() {
  */
 export function makeMetalCanvas() {
   const {canvas, ctx} = makeCanvas(256);
-  ctx.fillStyle = '#b9bec6';
+  ctx.fillStyle = STEEL;
   ctx.fillRect(0, 0, 256, 256);
   for (let i = 0; i < 900; i++) {
     const bright = Math.random() > 0.5;
@@ -100,7 +102,7 @@ export function makeMetalCanvas() {
  */
 export function makeKnurlCanvas() {
   const {canvas, ctx} = makeCanvas(256);
-  ctx.fillStyle = '#c9ccd2';
+  ctx.fillStyle = STEEL_LIGHT;
   ctx.fillRect(0, 0, 256, 256);
   ctx.strokeStyle = 'rgba(50, 54, 62, 0.28)';
   ctx.lineWidth = 1.6;
@@ -320,7 +322,7 @@ export function makeClockCanvas() {
   ctx.lineTo(128 + Math.cos(-Math.PI * 0.17) * 82,
       128 + Math.sin(-Math.PI * 0.17) * 82);
   ctx.stroke();
-  ctx.fillStyle = '#c8332f';
+  ctx.fillStyle = RED;
   ctx.beginPath();
   ctx.arc(128, 128, 7, 0, Math.PI * 2);
   ctx.fill();
